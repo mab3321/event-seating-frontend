@@ -12,15 +12,15 @@ Interactive seat selection interface for event venues.
 
 ## Features
 
-✅ Interactive seat selection (max 8 seats)
-✅ Keyboard navigation and accessibility
-✅ Real-time subtotal calculation
-✅ Persistent selection across reloads
-✅ Dark mode with WCAG AA contrast
-✅ Heat-map visualization by price tier
-✅ Find adjacent seats helper
-✅ Pan & zoom controls
-✅ Mobile-responsive
+- Interactive seat selection (max 8 seats)
+- Keyboard navigation and accessibility
+- Real-time subtotal calculation
+- Persistent selection across reloads
+- Dark mode with WCAG AA contrast
+- Heat-map visualization by price tier
+- Find adjacent seats helper
+- Pan & zoom controls
+- Mobile-responsive
 
 ## Setup
 ```bash
