@@ -210,7 +210,7 @@ export default function EventSeatingMap() {
           <h1 className="text-2xl font-bold mb-4">{venueData.name}</h1>
           
           <div className="flex flex-wrap gap-4 items-center">
-            <div className="flex-1 min-w-64">
+            <div className="flex-1 min-w-0">
               <div className="relative">
                 <Search className="absolute left-3 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400" />
                 <input
@@ -272,10 +272,10 @@ export default function EventSeatingMap() {
       </div>
 
       {/* Main Content */}
-      <div className="flex-1 flex overflow-hidden">
+      <div className="flex-1 flex flex-col md:flex-row overflow-hidden">
         {/* Seating Map */}
         <div 
-          className="flex-1 relative overflow-hidden"
+          className="flex-1 relative overflow-hidden h-2/3 md:h-auto md:flex-1"
           onMouseDown={handleMouseDown}
           onMouseMove={handleMouseMove}
           onMouseUp={handleMouseUp}
@@ -287,12 +287,14 @@ export default function EventSeatingMap() {
             viewBox={`0 0 ${venueData.map.width} ${venueData.map.height}`}
             className="w-full h-full"
             style={{
-              transform: `scale(${zoom}) translate(${pan.x / zoom}px, ${pan.y / zoom}px)`
+              transform: `scale(${zoom}) translate(${pan.x / zoom}px, ${pan.y / zoom}px)`,
+              transformOrigin: '0 0'
             }}
+            preserveAspectRatio="xMidYMid meet"
           >
             {venueData.sections.map(section => (
               <g key={section.id}>
-                <text x={section.rows[0]?.seats[0]?.x || 0} y={(section.rows[0]?.seats[0]?.y || 0) - 20} className="text-sm font-bold fill-current">
+                <text x={section.rows[0]?.seats[0]?.x || 0} y={(section.rows[0]?.seats[0]?.y || 0) - 20} fill={darkMode ? '#ffffff' : '#000000'} fontSize={12} fontWeight={700}>
                   {section.label}
                 </text>
                 {section.rows.map(row =>
@@ -301,7 +303,7 @@ export default function EventSeatingMap() {
                       key={seat.id}
                       cx={seat.x}
                       cy={seat.y}
-                      r="4"
+                      r={4}
                       fill={getSeatColor(seat)}
                       stroke={focusedSeat?.id === seat.id ? '#fff' : 'none'}
                       strokeWidth="2"
@@ -334,7 +336,7 @@ export default function EventSeatingMap() {
         </div>
 
         {/* Sidebar */}
-        <div className={`w-80 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg p-6 overflow-y-auto`}>
+        <div className={`w-full md:w-80 md:shrink-0 ${darkMode ? 'bg-gray-800' : 'bg-white'} shadow-lg p-6 overflow-y-auto`}>
           <h2 className="text-xl font-bold mb-4">Selected Seats ({selectedSeats.length}/{MAX_SEATS})</h2>
           
           {selectedSeats.length === 0 ? (
